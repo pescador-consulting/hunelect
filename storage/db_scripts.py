@@ -1,9 +1,13 @@
 import psycopg2
+import json
 
-db_password = 'postgres'
-db_host = 'localhost'
-db_db = 'postgis_25_sample'
-db_user = 'postgres'
+with open('./config/config.json') as json_file:
+    config = json.load(json_file)
+
+db_password = config["db_password"]
+db_host = config["db_host"]
+db_db = config["db_db"]
+db_user = config["db_user"]
 
 
 def clean_db():

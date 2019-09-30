@@ -46,7 +46,7 @@ def GetPersonalTable(url):
     table = html.findAll("div", {"class": "nvi-summary-container summary-container-ogy first-container nvi-collapsed not-collapsable"})
     if len(table) == 0:
         table = html.findAll("div", {"class": "nvi-summary-container summary-container-ogy first-container nvi-collapsed"})
-    if len(table[0].find_all('span')) > 10:
+    if len(table[0].find_all('span')) > 11:
         nszvsz = table[0].find_all('span')[0].text
         if table[0].find_all('div')[14].text == ' Megjelent ':
             m = table[0].find_all('div')[15].text
