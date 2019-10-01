@@ -103,6 +103,7 @@ venv.bak/
 # mypy
 *.json
 .mypy_cache/
+/torzs/*
 config/config.json
 /config/config.json
 config/config.json

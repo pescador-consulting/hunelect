@@ -10,14 +10,18 @@ def GetDescriptionTable(url):
     html = BeautifulSoup(raw_html, 'html.parser')
 
     table = html.find(lambda tag: tag.name == 'table')
-    rows = table.findAll(lambda tag: tag.name == 'tr')
-
-    l1 = []
-    l2 = []
-    for tr in rows:
-        l1.append(tr.find_all('td')[0].find_all('div')[1].text)
-        l2.append(tr.find_all('td')[0].find_all('div')[2].text)
-    df = pd.DataFrame([l1, l2])
+    if table is not None:
+        rows = table.findAll(lambda tag: tag.name == 'tr')
+        l1 = []
+        l2 = []
+        for tr in rows:
+            l1.append(tr.find_all('td')[0].find_all('div')[1].text)
+            l2.append(tr.find_all('td')[0].find_all('div')[2].text)
+        df = pd.DataFrame([l1, l2])
+    else:
+        l1 = ['egész város']
+        l2 = ['egész város']
+        df = pd.DataFrame([l1, l2])
     return df
 
 
