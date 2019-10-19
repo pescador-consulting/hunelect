@@ -35,50 +35,53 @@ def GetPersonalTable(url):
     detailed_link = [x for x in buttons if 'A szavazókör általános adatai' in x.text][0].attrs['href']
 
     table = html.find(lambda tag: tag.name == 'table')
-    rows = table.findAll(lambda tag: tag.name == 'tr')
-
-    l1 = []
-    l2 = []
-    l3 = []
-    for tr in rows[1:]:
-        if len(tr.find_all('td')) > 1:
-            l1.append(tr.find_all('td')[1].find_all('div')[1].find_all('a')[0].text)
-            l2.append(tr.find_all('td')[1].find_all('div')[1].find_all('div')[0].text)
-            l3.append(tr.find_all('td')[2].find_all('div')[0].text)
-    df = pd.DataFrame([l1, l2, l3])
-
-    table = html.findAll("div", {"class": "nvi-summary-container summary-container-ogy first-container nvi-collapsed not-collapsable"})
-    if len(table) == 0:
-        table = html.findAll("div", {"class": "nvi-summary-container summary-container-ogy first-container nvi-collapsed"})
-    if len(table[0].find_all('span')) > 11:
-        nszvsz = table[0].find_all('span')[0].text
-        if table[0].find_all('div')[14].text == ' Megjelent ':
-            m = table[0].find_all('div')[15].text
-        else:
-            m = table[0].find_all('div')[14].text
-        if table[0].find_all('div')[14].text == ' Megjelent ':
-            nsz = table[0].find_all('div')[20].text
-        else:
-            nsz = table[0].find_all('div')[19].text
-        ulbnszsz = table[0].find_all('span')[5].text
-        ulbszsz = table[0].find_all('span')[7].text
-        easzmsz = table[0].find_all('span')[9].text
-        elszsz = table[0].find_all('span')[11].text
-        eszsz = table[0].find_all('span')[13].text
+    if table is None:
+        return [], [], [], []
     else:
-        othertable = html.findAll("div", {"class": "nvi-summary-content summary-content-kijeloltJkv toggler-content-collapsed hide"})
-        nszvsz = table[0].find_all('span')[0].text
-        m = othertable[0].find_all('div')[13].text
-        nsz = othertable[0].find_all('div')[18].text
-        ulbnszsz = 0
-        ulbszsz = othertable[0].find_all('div')[22].findAll('span')[2].text
-        easzmsz = 0
-        elszsz = othertable[0].find_all('div')[23].findAll('span')[2].text
-        eszsz = othertable[0].find_all('div')[24].findAll('span')[2].text
+        rows = table.findAll(lambda tag: tag.name == 'tr')
 
-    results = [nszvsz, m, nsz, ulbnszsz, ulbszsz, easzmsz, elszsz, eszsz]
+        l1 = []
+        l2 = []
+        l3 = []
+        for tr in rows[1:]:
+            if len(tr.find_all('td')) > 1:
+                l1.append(tr.find_all('td')[1].find_all('div')[1].find_all('a')[0].text)
+                l2.append(tr.find_all('td')[1].find_all('div')[1].find_all('div')[0].text)
+                l3.append(tr.find_all('td')[2].find_all('div')[0].text)
+        df = pd.DataFrame([l1, l2, l3])
 
-    return df, results, national_link, detailed_link
+        table = html.findAll("div", {"class": "nvi-summary-container summary-container-ogy first-container nvi-collapsed not-collapsable"})
+        if len(table) == 0:
+            table = html.findAll("div", {"class": "nvi-summary-container summary-container-ogy first-container nvi-collapsed"})
+        if len(table[0].find_all('span')) > 11:
+            nszvsz = table[0].find_all('span')[0].text
+            if table[0].find_all('div')[14].text == ' Megjelent ':
+                m = table[0].find_all('div')[15].text
+            else:
+                m = table[0].find_all('div')[14].text
+            if table[0].find_all('div')[14].text == ' Megjelent ':
+                nsz = table[0].find_all('div')[20].text
+            else:
+                nsz = table[0].find_all('div')[19].text
+            ulbnszsz = table[0].find_all('span')[5].text
+            ulbszsz = table[0].find_all('span')[7].text
+            easzmsz = table[0].find_all('span')[9].text
+            elszsz = table[0].find_all('span')[11].text
+            eszsz = table[0].find_all('span')[13].text
+        else:
+            othertable = html.findAll("div", {"class": "nvi-summary-content summary-content-kijeloltJkv toggler-content-collapsed hide"})
+            nszvsz = table[0].find_all('span')[0].text
+            m = othertable[0].find_all('div')[13].text
+            nsz = othertable[0].find_all('div')[18].text
+            ulbnszsz = 0
+            ulbszsz = othertable[0].find_all('div')[22].findAll('span')[2].text
+            easzmsz = 0
+            elszsz = othertable[0].find_all('div')[23].findAll('span')[2].text
+            eszsz = othertable[0].find_all('div')[24].findAll('span')[2].text
+
+        results = [nszvsz, m, nsz, ulbnszsz, ulbszsz, easzmsz, elszsz, eszsz]
+
+        return df, results, national_link, detailed_link
 
 
 def GetNationalTable(url):

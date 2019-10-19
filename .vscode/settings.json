@@ -3,5 +3,5 @@
     "python.linting.pylintEnabled": false,
     "python.linting.enabled": true,
     "python.linting.flake8Enabled": true,
-    "python.linting.flake8Args": ["--max-line-length=400", "--ignore=E251,E722,F841"]
+    "python.linting.flake8Args": ["--max-line-length=1400", "--ignore=E251,E722,F841"]
 }

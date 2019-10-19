@@ -1,0 +1,6 @@
+{
+    "db_password" : "forever",
+    "db_host" : "localhost",
+    "db_db" : "postgres",
+    "db_user" : "postgres"
+}

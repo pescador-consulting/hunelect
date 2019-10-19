@@ -9,6 +9,15 @@
       "env": {
         "NODE_ENV": "dev"
       }
+    },
+    {
+        "type": "python",
+        "request": "launch",
+        "name": "Continue pipeline",
+        "program": "${workspaceFolder}\\main continue.py",
+        "env": {
+          "NODE_ENV": "dev"
+        }
     }
   ]
 }
